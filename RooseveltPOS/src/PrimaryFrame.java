@@ -49,6 +49,7 @@ import javax.swing.ImageIcon;
 import java.net.URL;
 import java.awt.Dimension;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 public class PrimaryFrame extends JFrame {
 
@@ -61,6 +62,8 @@ public class PrimaryFrame extends JFrame {
 	private List<String> dailyTotalSold = new ArrayList<>();
 	//private int top;
 	double subtotal = 0;
+	boolean tenderWindowActive = false;
+	JFrame activeFrame;
 	
 	private final JButton btnSmPop = new JButton("Sm Popcorn");
 	private final JButton btn3Musk = new JButton("");
@@ -114,6 +117,21 @@ public class PrimaryFrame extends JFrame {
 	private final JButton btnCookieDoughBites = new JButton("Cookie Dough Bites");
 	private final JButton btnButterfingerBites = new JButton("Butterfinger Bites");
 	private final JPanel pnlCandy = new JPanel();
+	private final JButton btnKitKat = new JButton("Kit Kat");
+	private final JButton btnMikeIke = new JButton("Mike Ike");
+	private final JButton btnGoober = new JButton("Goober");
+	private final JButton btnRaisinets = new JButton("Raisinets");
+	private final JButton btnSnoCaps = new JButton("Sno Caps");
+	private final JButton btnJujyFruits = new JButton("Jujy Fruits");
+	private final JButton btnTwizzlers = new JButton("Twizzlers");
+	private final JButton btnSourPatch = new JButton("Sour Patch");
+	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private final JButton btnPegReesesPieces = new JButton("Peg Reeses Pieces");
+	private final JButton btnPegSourSkittles = new JButton("Peg Sour Skittles");
+	private final JButton btnPegSkittles = new JButton("Peg Skittles");
+	private final JButton btnReesesCups = new JButton("Reeses Cups");
+	private final JButton btnCheese = new JButton("Cheese");
+	private final JButton btnHotDog = new JButton("Hot Dog");
 	
 	/**
 	 * Launch the application.
@@ -138,10 +156,6 @@ public class PrimaryFrame extends JFrame {
 		jbInit();
 	}
 	private void jbInit() {
-		lblSqwigglies.setForeground(Color.BLACK);
-		lblSqwigglies.setFont(new Font("Century", Font.BOLD, 11));
-		lblSqwigglies.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSqwigglies.setLabelFor(btnSqwigglies);
 		setType(Type.UTILITY);
 		setTitle("Roosevelt POS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,43 +169,6 @@ public class PrimaryFrame extends JFrame {
 		Image img = icon.getImage() ;  
 		   Image newimg = img.getScaledInstance( 89, 74,  java.awt.Image.SCALE_SMOOTH ) ;  
 		   icon = new ImageIcon( newimg );
-		btn3Musk.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/3Musk.jpg")));
-		btn3Musk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				do_btn3Musk_actionPerformed(arg0);
-			}
-		});
-		lblSmPopcorn.setForeground(Color.BLACK);
-		lblSmPopcorn.setFont(new Font("Century", Font.BOLD, 11));
-		lblSmPopcorn.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSmPopcorn.setBounds(7, 55, 89, 14);
-		
-		pnlCandy.add(lblSmPopcorn);
-		lblSmPopcorn.setLabelFor(btnSmPop);
-		lblMusketeers.setFont(new Font("Century", Font.BOLD, 11));
-		lblMusketeers.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMusketeers.setBounds(106, 57, 89, 14);
-		
-		pnlCandy.add(lblMusketeers);
-		btn3Musk.setBounds(106, 11, 89, 60);
-		
-		pnlCandy.add(btn3Musk);
-		btnSlushy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				do_btnSlushy_actionPerformed(arg0);
-			}
-		});
-		btnSlushy.setBounds(391, 11, 89, 74);
-		
-		pnlCandy.add(btnSlushy);
-		btnBulkCandy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				do_btnBulkCandy_actionPerformed(arg0);
-			}
-		});
-		btnBulkCandy.setBounds(486, 11, 89, 74);
-		
-		pnlCandy.add(btnBulkCandy);
 		pnlOrder.setBackground(new Color(255, 255, 224));
 		pnlOrder.addMouseListener(new MouseAdapter() {
 			@Override
@@ -239,9 +216,19 @@ public class PrimaryFrame extends JFrame {
 		btnVoidOne.setBounds(727, 380, 73, 59);
 		
 		contentPane.add(btnVoidOne);
+		btnStartTender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnStartTender_actionPerformed(e);
+			}
+		});
 		btnStartTender.setBounds(585, 439, 109, 59);
 		
 		contentPane.add(btnStartTender);
+		btnExactChange.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnExactChange_actionPerformed(e);
+			}
+		});
 		btnExactChange.setBounds(694, 439, 106, 59);
 		
 		contentPane.add(btnExactChange);
@@ -281,6 +268,51 @@ public class PrimaryFrame extends JFrame {
 		
 		contentPane.add(pnlPrice);
 		pnlPrice.setLayout(new BoxLayout(pnlPrice, BoxLayout.Y_AXIS));
+		tabbedPane.setBounds(0, 0, 580, 578);
+		
+		contentPane.add(tabbedPane);
+		lblSqwigglies.setForeground(Color.BLACK);
+		lblSqwigglies.setFont(new Font("Century", Font.BOLD, 11));
+		lblSqwigglies.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSqwigglies.setLabelFor(btnSqwigglies);
+		btn3Musk.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/3Musk.jpg")));
+		btn3Musk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btn3Musk_actionPerformed(arg0);
+			}
+		});
+		lblSmPopcorn.setForeground(Color.BLACK);
+		lblSmPopcorn.setFont(new Font("Century", Font.BOLD, 11));
+		lblSmPopcorn.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSmPopcorn.setBounds(7, 55, 89, 14);
+		tabbedPane.addTab("New tab", null, pnlCandy, null);
+		
+		pnlCandy.add(lblSmPopcorn);
+		lblSmPopcorn.setLabelFor(btnSmPop);
+		lblMusketeers.setFont(new Font("Century", Font.BOLD, 11));
+		lblMusketeers.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMusketeers.setBounds(106, 57, 89, 14);
+		
+		pnlCandy.add(lblMusketeers);
+		btn3Musk.setBounds(106, 11, 89, 60);
+		
+		pnlCandy.add(btn3Musk);
+		btnSlushy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnSlushy_actionPerformed(arg0);
+			}
+		});
+		btnSlushy.setBounds(391, 11, 89, 60);
+		
+		pnlCandy.add(btnSlushy);
+		btnBulkCandy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnBulkCandy_actionPerformed(arg0);
+			}
+		});
+		btnBulkCandy.setBounds(486, 11, 89, 74);
+		
+		pnlCandy.add(btnBulkCandy);
 		btnMedPop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnMedPop_actionPerformed(arg0);
@@ -288,7 +320,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnMedPop.setBounds(7, 75, 89, 60);
 		
-		contentPane.add(btnMedPop);
+		pnlCandy.add(btnMedPop);
 		btnLgPop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnLgPop_actionPerformed(arg0);
@@ -296,7 +328,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnLgPop.setBounds(7, 136, 89, 60);
 		
-		contentPane.add(btnLgPop);
+		pnlCandy.add(btnLgPop);
 		
 		btnSmPop.setMargin(new Insets(0, 14, 0, 0));
 		btnSmPop.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/smallPopcorn.png")));
@@ -317,7 +349,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnSmDrink.setBounds(7, 197, 89, 60);
 		
-		contentPane.add(btnSmDrink);
+		pnlCandy.add(btnSmDrink);
 		btnMedDrink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnMedDrink_actionPerformed(arg0);
@@ -325,7 +357,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnMedDrink.setBounds(7, 260, 89, 60);
 		
-		contentPane.add(btnMedDrink);
+		pnlCandy.add(btnMedDrink);
 		btnLgDrink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnLgDrink_actionPerformed(arg0);
@@ -333,7 +365,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnLgDrink.setBounds(7, 323, 89, 60);
 		
-		contentPane.add(btnLgDrink);
+		pnlCandy.add(btnLgDrink);
 		btnNeccos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnNeccos_actionPerformed(arg0);
@@ -341,7 +373,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnNeccos.setBounds(106, 75, 89, 60);
 		
-		contentPane.add(btnNeccos);
+		pnlCandy.add(btnNeccos);
 		btnReesesPieces.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnReesesPieces_actionPerformed(arg0);
@@ -349,7 +381,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnReesesPieces.setBounds(106, 136, 89, 60);
 		
-		contentPane.add(btnReesesPieces);
+		pnlCandy.add(btnReesesPieces);
 		btnSkittles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnSkittles_actionPerformed(arg0);
@@ -357,7 +389,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnSkittles.setBounds(106, 197, 89, 60);
 		
-		contentPane.add(btnSkittles);
+		pnlCandy.add(btnSkittles);
 		btnSnickers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnSnickers_actionPerformed(arg0);
@@ -365,7 +397,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnSnickers.setBounds(106, 260, 89, 60);
 		
-		contentPane.add(btnSnickers);
+		pnlCandy.add(btnSnickers);
 		btnStarburstOrg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnStarburstOrg_actionPerformed(arg0);
@@ -374,7 +406,7 @@ public class PrimaryFrame extends JFrame {
 		btnStarburstOrg.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnStarburstOrg.setBounds(106, 323, 89, 60);
 		
-		contentPane.add(btnStarburstOrg);
+		pnlCandy.add(btnStarburstOrg);
 		btnStarburstTrop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnStarburstTrop_actionPerformed(arg0);
@@ -382,7 +414,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnStarburstTrop.setBounds(106, 386, 89, 60);
 		
-		contentPane.add(btnStarburstTrop);
+		pnlCandy.add(btnStarburstTrop);
 		btnSpree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnSpree_actionPerformed(arg0);
@@ -390,7 +422,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnSpree.setBounds(106, 449, 89, 60);
 		
-		contentPane.add(btnSpree);
+		pnlCandy.add(btnSpree);
 		btnTwix.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnTwix_actionPerformed(arg0);
@@ -398,10 +430,10 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnTwix.setBounds(106, 512, 89, 60);
 		
-		contentPane.add(btnTwix);
+		pnlCandy.add(btnTwix);
 		lblSqwigglies.setBounds(201, 55, 89, 14);
 		
-		contentPane.add(lblSqwigglies);
+		pnlCandy.add(lblSqwigglies);
 		btnSqwigglies.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/sqwigglies.png")));
 		btnSqwigglies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -410,12 +442,12 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnSqwigglies.setBounds(201, 11, 89, 60);
 		
-		contentPane.add(btnSqwigglies);
+		pnlCandy.add(btnSqwigglies);
 		lblBunchaCrunch.setForeground(Color.WHITE);
 		lblBunchaCrunch.setFont(new Font("Century", Font.BOLD, 10));
 		lblBunchaCrunch.setBounds(296, 55, 89, 14);
 		
-		contentPane.add(lblBunchaCrunch);
+		pnlCandy.add(lblBunchaCrunch);
 		btnBunchaCrunch.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/bunchaCrunch.png")));
 		btnBunchaCrunch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -424,35 +456,184 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnBunchaCrunch.setBounds(296, 11, 89, 60);
 		
-		contentPane.add(btnBunchaCrunch);
+		pnlCandy.add(btnBunchaCrunch);
+		btnGummiBears.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnGummiBears_actionPerformed(arg0);
+			}
+		});
 		btnGummiBears.setBounds(201, 75, 89, 60);
 		
-		contentPane.add(btnGummiBears);
+		pnlCandy.add(btnGummiBears);
+		btnJrMints.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnJrMints_actionPerformed(e);
+			}
+		});
 		btnJrMints.setBounds(201, 136, 89, 60);
 		
-		contentPane.add(btnJrMints);
+		pnlCandy.add(btnJrMints);
+		btnMmPlain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnMmPlain_actionPerformed(e);
+			}
+		});
 		btnMmPlain.setBounds(201, 197, 89, 60);
 		
-		contentPane.add(btnMmPlain);
+		pnlCandy.add(btnMmPlain);
+		btnMmPeanut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnMmPeanut_actionPerformed(e);
+			}
+		});
 		btnMmPeanut.setBounds(201, 260, 89, 60);
 		
-		contentPane.add(btnMmPeanut);
+		pnlCandy.add(btnMmPeanut);
+		btnMilkDuds.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnMilkDuds_actionPerformed(e);
+			}
+		});
 		btnMilkDuds.setBounds(201, 322, 89, 60);
 		
-		contentPane.add(btnMilkDuds);
+		pnlCandy.add(btnMilkDuds);
+		btnPeanutChew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnPeanutChew_actionPerformed(e);
+			}
+		});
 		btnPeanutChew.setBounds(201, 386, 89, 60);
 		
-		contentPane.add(btnPeanutChew);
+		pnlCandy.add(btnPeanutChew);
+		btnCookieDoughBites.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnCookieDoughBites_actionPerformed(e);
+			}
+		});
 		btnCookieDoughBites.setBounds(201, 449, 89, 60);
 		
-		contentPane.add(btnCookieDoughBites);
+		pnlCandy.add(btnCookieDoughBites);
+		btnButterfingerBites.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnButterfingerBites_actionPerformed(e);
+			}
+		});
 		btnButterfingerBites.setBounds(201, 513, 89, 59);
 		
-		contentPane.add(btnButterfingerBites);
-		pnlCandy.setBounds(0, 0, 580, 578);
-		
-		contentPane.add(pnlCandy);
+		pnlCandy.add(btnButterfingerBites);
 		pnlCandy.setLayout(null);
+		btnKitKat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnKitKat_actionPerformed(e);
+			}
+		});
+		btnKitKat.setBounds(296, 75, 89, 60);
+		
+		pnlCandy.add(btnKitKat);
+		btnMikeIke.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnMikeIke_actionPerformed(e);
+			}
+		});
+		btnMikeIke.setBounds(296, 136, 89, 60);
+		
+		pnlCandy.add(btnMikeIke);
+		btnGoober.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnGoober_actionPerformed(e);
+			}
+		});
+		btnGoober.setBounds(296, 197, 89, 60);
+		
+		pnlCandy.add(btnGoober);
+		btnRaisinets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnRaisinets_actionPerformed(e);
+			}
+		});
+		btnRaisinets.setBounds(296, 260, 89, 60);
+		
+		pnlCandy.add(btnRaisinets);
+		btnSnoCaps.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnSnoCaps_actionPerformed(e);
+			}
+		});
+		btnSnoCaps.setBounds(296, 323, 89, 60);
+		
+		pnlCandy.add(btnSnoCaps);
+		btnJujyFruits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnJujyFruits_actionPerformed(e);
+			}
+		});
+		btnJujyFruits.setBounds(296, 386, 89, 60);
+		
+		pnlCandy.add(btnJujyFruits);
+		btnTwizzlers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnTwizzlers_actionPerformed(e);
+			}
+		});
+		btnTwizzlers.setBounds(296, 449, 89, 60);
+		
+		pnlCandy.add(btnTwizzlers);
+		btnSourPatch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnSourPatch_actionPerformed(e);
+			}
+		});
+		btnSourPatch.setBounds(296, 512, 89, 60);
+		
+		pnlCandy.add(btnSourPatch);
+		btnPegReesesPieces.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnPegReesesPieces_actionPerformed(e);
+			}
+		});
+		btnPegReesesPieces.setBounds(391, 75, 89, 60);
+		
+		pnlCandy.add(btnPegReesesPieces);
+		btnPegSourSkittles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnPegSourSkittles_actionPerformed(e);
+			}
+		});
+		btnPegSourSkittles.setBounds(391, 136, 89, 60);
+		
+		pnlCandy.add(btnPegSourSkittles);
+		btnPegSkittles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnPegSkittles_actionPerformed(e);
+			}
+		});
+		btnPegSkittles.setBounds(391, 197, 89, 60);
+		
+		pnlCandy.add(btnPegSkittles);
+		btnReesesCups.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnReesesCups_actionPerformed(e);
+			}
+		});
+		btnReesesCups.setBounds(391, 260, 89, 60);
+		
+		pnlCandy.add(btnReesesCups);
+		btnCheese.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnCheese_actionPerformed(e);
+			}
+		});
+		btnCheese.setBounds(391, 323, 89, 60);
+		
+		pnlCandy.add(btnCheese);
+		btnHotDog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnHotDog_actionPerformed(e);
+			}
+		});
+		btnHotDog.setBounds(391, 449, 89, 60);
+		
+		pnlCandy.add(btnHotDog);
 	}
 	
 	public void orderManager(String concItem) {
@@ -623,6 +804,29 @@ public class PrimaryFrame extends JFrame {
 		endTransaction();
 	}
 	
+	protected void do_btnExactChange_actionPerformed(ActionEvent e) {
+		lblTenderOut.setText(String.format("%.2f", (subtotal)));
+		lblChangeOut.setText("0.00");
+		endTransaction();
+	}
+	
+	protected void do_btnStartTender_actionPerformed(ActionEvent e) {
+		if(!tenderWindowActive) {
+			TenderFrame tenderFrame = new TenderFrame();
+			tenderFrame.setVisible(true);
+			activeFrame = tenderFrame;
+			btnStartTender.setText("Tender Done");
+			tenderWindowActive = true;
+		}else{
+		
+			btnStartTender.setText("Start Tender");
+			activeFrame.dispose();
+			tenderWindowActive = false;
+		}
+		
+	}
+	
+	
 	//Once the customer has paid, the contents of the order are added to an array, the order panel is cleared, 
 	//and the order stack is emptied
 	public void endTransaction() {
@@ -692,6 +896,76 @@ public class PrimaryFrame extends JFrame {
 	protected void do_btnTwix_actionPerformed(ActionEvent arg0) {
 		orderManager("Twix");
 	}
+	protected void do_btnGummiBears_actionPerformed(ActionEvent arg0) {
+		orderManager("Gummi Bears");
+	}
+	protected void do_btnJrMints_actionPerformed(ActionEvent e) {
+		orderManager("Jr Mints");
+	}
+	protected void do_btnMmPlain_actionPerformed(ActionEvent e) {
+		orderManager("MM Plain");
+	}
+	protected void do_btnMmPeanut_actionPerformed(ActionEvent e) {
+		orderManager("MM Peanut");
+	}
+	protected void do_btnMilkDuds_actionPerformed(ActionEvent e) {
+		orderManager("Milk Duds");
+	}
+	protected void do_btnPeanutChew_actionPerformed(ActionEvent e) {
+		orderManager("Peanut Chews");
+	}
+	protected void do_btnCookieDoughBites_actionPerformed(ActionEvent e) {
+		orderManager("Cookie Dough Bites");
+	}
+	protected void do_btnButterfingerBites_actionPerformed(ActionEvent e) {
+		orderManager("Butterfinger Bites");
+	}
+	protected void do_btnKitKat_actionPerformed(ActionEvent e) {
+		orderManager("Kit Kat");
+	}
+	protected void do_btnMikeIke_actionPerformed(ActionEvent e) {
+		orderManager("Mike Ike");
+	}
+	protected void do_btnGoober_actionPerformed(ActionEvent e) {
+		orderManager("Goobers");
+	}
+	protected void do_btnRaisinets_actionPerformed(ActionEvent e) {
+		orderManager("Raisinets");
+	}
+	protected void do_btnSnoCaps_actionPerformed(ActionEvent e) {
+		orderManager("Sno Caps");
+	}
+	protected void do_btnJujyFruits_actionPerformed(ActionEvent e) {
+		orderManager("Jujy Fruits");
+	}
+	protected void do_btnTwizzlers_actionPerformed(ActionEvent e) {
+		orderManager("Twizzlers");
+	}
+	protected void do_btnSourPatch_actionPerformed(ActionEvent e) {
+		orderManager("Sour Patch");
+	}
+	protected void do_btnPegReesesPieces_actionPerformed(ActionEvent e) {
+		orderManager("Peg Reeses Pieces");
+	}
+	protected void do_btnPegSourSkittles_actionPerformed(ActionEvent e) {
+		orderManager("Peg Sour Skittles");
+	}
+	protected void do_btnPegSkittles_actionPerformed(ActionEvent e) {
+		orderManager("Peg Skittles");
+	}
+	protected void do_btnReesesCups_actionPerformed(ActionEvent e) {
+		orderManager("Reeses Cups");
+	}
+	protected void do_btnCheese_actionPerformed(ActionEvent e) {
+		orderManager("Cheese");
+	}
+	protected void do_btnHotDog_actionPerformed(ActionEvent e) {
+		orderManager("Hot Dog");
+	}
+	
+	
+	
+	
 	
 	
 }
