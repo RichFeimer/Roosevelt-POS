@@ -19,6 +19,8 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import java.awt.Window.Type;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -50,6 +52,7 @@ import java.net.URL;
 import java.awt.Dimension;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import java.awt.CardLayout;
 
 public class PrimaryFrame extends JFrame {
 
@@ -63,7 +66,8 @@ public class PrimaryFrame extends JFrame {
 	//private int top;
 	double subtotal = 0;
 	boolean tenderWindowActive = false;
-	JFrame activeFrame;
+	TenderFrame activeFrame;
+	double customTender =0;
 	
 	private final JButton btnSmPop = new JButton("Sm Popcorn");
 	private final JButton btn3Musk = new JButton("");
@@ -125,14 +129,44 @@ public class PrimaryFrame extends JFrame {
 	private final JButton btnJujyFruits = new JButton("Jujy Fruits");
 	private final JButton btnTwizzlers = new JButton("Twizzlers");
 	private final JButton btnSourPatch = new JButton("Sour Patch");
-	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	private final JButton btnPegReesesPieces = new JButton("Peg Reeses Pieces");
 	private final JButton btnPegSourSkittles = new JButton("Peg Sour Skittles");
 	private final JButton btnPegSkittles = new JButton("Peg Skittles");
 	private final JButton btnReesesCups = new JButton("Reeses Cups");
 	private final JButton btnCheese = new JButton("Cheese");
 	private final JButton btnHotDog = new JButton("Hot Dog");
+	private final JPanel pnlDeck = new JPanel();
+	private final JPanel pnlDrinks = new JPanel();
+	private final JButton btnNextPage = new JButton("Next Page");
 	
+	final static String candyPanel = "Panel containing candy and popcorn";
+	final static String drinkPanel = "Panel containing bottled drinks";
+	private final JButton btnPrevPage = new JButton("Prev Page");
+	private final JButton btnSmCoffee = new JButton("Sm Coffee");
+	private final JButton btnLgCoffee = new JButton("Lg Coffee");
+	private final JButton btnWater = new JButton("Water");
+	private final JButton btnPretzel = new JButton("Pretzel");
+	private final JButton btnNachos = new JButton("Nachos");
+	private final JButton btnIceCream = new JButton("Ice Cream");
+	private final JButton btnIceCreamBar = new JButton("Ice Cream Bar");
+	private final JButton btnAppleJuice = new JButton("Apple Juice");
+	private final JButton btnLemonade = new JButton("Lemonade");
+	private final JButton btnCherryCoke = new JButton("Cherry Coke");
+	private final JButton btnMelloYello = new JButton("Mello Yello");
+	private final JButton btnDietDrPepper = new JButton("Diet Dr Pepper");
+	private final JButton btnMtBlast = new JButton("Mt Blast");
+	private final JButton btnFruitPunch = new JButton("Fruit Punch");
+	private final JButton btnVanCoke = new JButton("Van Coke");
+	private final JButton btnFuze = new JButton("Fuze");
+	private final JButton btnCokeZero = new JButton("Coke Zero");
+	private final JButton btnEssential = new JButton("Essential");
+	private final JButton btnSqueezed = new JButton("Squeezed");
+	private final JButton btnFocus = new JButton("Focus");
+	private final JButton btnXxx = new JButton("XXX");
+	private final JButton btnRevive = new JButton("Revive");
+	private final JButton btnBuckets = new JButton("Buckets");
+	
+
 	/**
 	 * Launch the application.
 	 */
@@ -213,6 +247,7 @@ public class PrimaryFrame extends JFrame {
 		btn50Dollars.setBounds(658, 380, 73, 59);
 		
 		contentPane.add(btn50Dollars);
+		btnVoidOne.setEnabled(false);
 		btnVoidOne.setBounds(727, 380, 73, 59);
 		
 		contentPane.add(btnVoidOne);
@@ -260,6 +295,7 @@ public class PrimaryFrame extends JFrame {
 		lblChange.setBounds(694, 528, 46, 14);
 		
 		contentPane.add(lblChange);
+		btnMenu.setEnabled(false);
 		btnMenu.setBounds(585, 498, 99, 59);
 		
 		contentPane.add(btnMenu);
@@ -268,9 +304,10 @@ public class PrimaryFrame extends JFrame {
 		
 		contentPane.add(pnlPrice);
 		pnlPrice.setLayout(new BoxLayout(pnlPrice, BoxLayout.Y_AXIS));
-		tabbedPane.setBounds(0, 0, 580, 578);
+		pnlDeck.setBounds(0, 0, 575, 578);
 		
-		contentPane.add(tabbedPane);
+		contentPane.add(pnlDeck);
+		pnlDeck.setLayout(new CardLayout(0, 0));
 		lblSqwigglies.setForeground(Color.BLACK);
 		lblSqwigglies.setFont(new Font("Century", Font.BOLD, 11));
 		lblSqwigglies.setHorizontalAlignment(SwingConstants.CENTER);
@@ -285,7 +322,9 @@ public class PrimaryFrame extends JFrame {
 		lblSmPopcorn.setFont(new Font("Century", Font.BOLD, 11));
 		lblSmPopcorn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSmPopcorn.setBounds(7, 55, 89, 14);
-		tabbedPane.addTab("New tab", null, pnlCandy, null);
+		pnlDeck.add(candyPanel, pnlCandy);
+		
+		
 		
 		pnlCandy.add(lblSmPopcorn);
 		lblSmPopcorn.setLabelFor(btnSmPop);
@@ -310,7 +349,7 @@ public class PrimaryFrame extends JFrame {
 				do_btnBulkCandy_actionPerformed(arg0);
 			}
 		});
-		btnBulkCandy.setBounds(486, 11, 89, 74);
+		btnBulkCandy.setBounds(486, 11, 89, 60);
 		
 		pnlCandy.add(btnBulkCandy);
 		btnMedPop.addActionListener(new ActionListener() {
@@ -634,6 +673,212 @@ public class PrimaryFrame extends JFrame {
 		btnHotDog.setBounds(391, 449, 89, 60);
 		
 		pnlCandy.add(btnHotDog);
+		btnNextPage.setBackground(new Color(255, 0, 0));
+		btnNextPage.setForeground(Color.BLACK);
+		btnNextPage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnNextPage_actionPerformed(arg0);
+			}
+		});
+		btnNextPage.setBounds(486, 512, 89, 60);
+		
+		pnlCandy.add(btnNextPage);
+		btnSmCoffee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnSmCoffee_actionPerformed(arg0);
+			}
+		});
+		btnSmCoffee.setBounds(486, 75, 89, 60);
+		
+		pnlCandy.add(btnSmCoffee);
+		btnLgCoffee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnLgCoffee_actionPerformed(arg0);
+			}
+		});
+		btnLgCoffee.setBounds(486, 136, 89, 60);
+		
+		pnlCandy.add(btnLgCoffee);
+		btnWater.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnWater_actionPerformed(arg0);
+			}
+		});
+		btnWater.setBounds(486, 197, 89, 60);
+		
+		pnlCandy.add(btnWater);
+		btnPretzel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnPretzel_actionPerformed(arg0);
+			}
+		});
+		btnPretzel.setBounds(486, 260, 89, 60);
+		
+		pnlCandy.add(btnPretzel);
+		btnNachos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnNachos_actionPerformed(arg0);
+			}
+		});
+		btnNachos.setBounds(486, 323, 89, 60);
+		
+		pnlCandy.add(btnNachos);
+		btnIceCream.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnIceCream_actionPerformed(arg0);
+			}
+		});
+		btnIceCream.setBounds(486, 386, 89, 60);
+		
+		pnlCandy.add(btnIceCream);
+		btnIceCreamBar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnIceCreamBar_actionPerformed(arg0);
+			}
+		});
+		btnIceCreamBar.setBounds(486, 449, 89, 60);
+		
+		pnlCandy.add(btnIceCreamBar);
+		
+		pnlDeck.add(drinkPanel, pnlDrinks);
+		pnlDrinks.setLayout(null);
+		btnPrevPage.setBackground(Color.RED);
+		btnPrevPage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnPrevPage_actionPerformed(arg0);
+			}
+		});
+		btnPrevPage.setBounds(486, 512, 89, 60);
+		
+		pnlDrinks.add(btnPrevPage);
+		btnAppleJuice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnAppleJuice_actionPerformed(arg0);
+			}
+		});
+		btnAppleJuice.setBounds(201, 11, 89, 60);
+		
+		pnlDrinks.add(btnAppleJuice);
+		btnLemonade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnLemonade_actionPerformed(arg0);
+			}
+		});
+		btnLemonade.setBounds(296, 11, 89, 60);
+		
+		pnlDrinks.add(btnLemonade);
+		btnCherryCoke.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnCherryCoke_actionPerformed(arg0);
+			}
+		});
+		btnCherryCoke.setBounds(201, 75, 89, 60);
+		
+		pnlDrinks.add(btnCherryCoke);
+		btnMelloYello.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnMelloYello_actionPerformed(arg0);
+			}
+		});
+		btnMelloYello.setBounds(296, 75, 89, 60);
+		
+		pnlDrinks.add(btnMelloYello);
+		btnDietDrPepper.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnDietDrPepper_actionPerformed(arg0);
+			}
+		});
+		btnDietDrPepper.setBounds(201, 136, 89, 60);
+		
+		pnlDrinks.add(btnDietDrPepper);
+		btnMtBlast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnMtBlast_actionPerformed(arg0);
+			}
+		});
+		btnMtBlast.setBounds(296, 136, 89, 60);
+		
+		pnlDrinks.add(btnMtBlast);
+		btnFruitPunch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnFruitPunch_actionPerformed(arg0);
+			}
+		});
+		btnFruitPunch.setBounds(201, 202, 89, 60);
+		
+		pnlDrinks.add(btnFruitPunch);
+		btnVanCoke.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnVanCoke_actionPerformed(arg0);
+			}
+		});
+		btnVanCoke.setBounds(296, 202, 89, 60);
+		
+		pnlDrinks.add(btnVanCoke);
+		btnFuze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnFuze_actionPerformed(arg0);
+			}
+		});
+		btnFuze.setBounds(201, 266, 89, 60);
+		
+		pnlDrinks.add(btnFuze);
+		btnCokeZero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnCokeZero_actionPerformed(arg0);
+			}
+		});
+		btnCokeZero.setBounds(296, 266, 89, 60);
+		
+		pnlDrinks.add(btnCokeZero);
+		btnEssential.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnEssential_actionPerformed(arg0);
+			}
+		});
+		btnEssential.setBounds(201, 378, 89, 60);
+		
+		pnlDrinks.add(btnEssential);
+		btnSqueezed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnSqueezed_actionPerformed(arg0);
+			}
+		});
+		btnSqueezed.setBounds(296, 378, 89, 60);
+		
+		pnlDrinks.add(btnSqueezed);
+		btnFocus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnFocus_actionPerformed(arg0);
+			}
+		});
+		btnFocus.setBounds(201, 442, 89, 60);
+		
+		pnlDrinks.add(btnFocus);
+		btnXxx.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnXxx_actionPerformed(arg0);
+			}
+		});
+		btnXxx.setBounds(296, 442, 89, 60);
+		
+		pnlDrinks.add(btnXxx);
+		btnRevive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnRevive_actionPerformed(arg0);
+			}
+		});
+		btnRevive.setBounds(201, 508, 89, 60);
+		
+		pnlDrinks.add(btnRevive);
+		btnBuckets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnBuckets_actionPerformed(arg0);
+			}
+		});
+		btnBuckets.setBounds(10, 202, 89, 60);
+		
+		pnlDrinks.add(btnBuckets);
 	}
 	
 	public void orderManager(String concItem) {
@@ -817,11 +1062,23 @@ public class PrimaryFrame extends JFrame {
 			activeFrame = tenderFrame;
 			btnStartTender.setText("Tender Done");
 			tenderWindowActive = true;
+			
 		}else{
-		
+			customTender = Double.parseDouble(activeFrame.getTender());
+			if(customTender < subtotal) {
+				JOptionPane.showMessageDialog(null, "Error: Tender must be greater than subtotal.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+				activeFrame.setAlwaysOnTop(true);
+				activeFrame.jtf.setText("");
+				activeFrame.numberString = "";
+			}else {
+			lblTenderOut.setText(String.format("%.2f", (customTender)));
+			lblChangeOut.setText(String.format("%.2f", (customTender - subtotal)));
+			endTransaction();
 			btnStartTender.setText("Start Tender");
 			activeFrame.dispose();
 			tenderWindowActive = false;
+			}
 		}
 		
 	}
@@ -962,10 +1219,81 @@ public class PrimaryFrame extends JFrame {
 	protected void do_btnHotDog_actionPerformed(ActionEvent e) {
 		orderManager("Hot Dog");
 	}
-	
-	
-	
-	
-	
-	
+	protected void do_btnNextPage_actionPerformed(ActionEvent arg0) {
+		CardLayout cardLayout = (CardLayout) pnlDeck.getLayout();
+		cardLayout.next(pnlDeck);
+	}
+	protected void do_btnPrevPage_actionPerformed(ActionEvent arg0) {
+		CardLayout cardLayout = (CardLayout) pnlDeck.getLayout();
+		cardLayout.next(pnlDeck);
+	}
+	protected void do_btnSmCoffee_actionPerformed(ActionEvent arg0) {
+		orderManager("Sm Coffee");
+	}
+	protected void do_btnLgCoffee_actionPerformed(ActionEvent arg0) {
+		orderManager("Lg Coffee");
+	}
+	protected void do_btnWater_actionPerformed(ActionEvent arg0) {
+		orderManager("Water");
+	}
+	protected void do_btnPretzel_actionPerformed(ActionEvent arg0) {
+		orderManager("Pretzel");
+	}
+	protected void do_btnNachos_actionPerformed(ActionEvent arg0) {
+		orderManager("Nachos");
+	}
+	protected void do_btnIceCream_actionPerformed(ActionEvent arg0) {
+		orderManager("Ice Cream");
+	}
+	protected void do_btnIceCreamBar_actionPerformed(ActionEvent arg0) {
+		orderManager("Ice Cream Bar");
+	}
+	protected void do_btnAppleJuice_actionPerformed(ActionEvent arg0) {
+		orderManager("Apple Juice");
+	}
+	protected void do_btnLemonade_actionPerformed(ActionEvent arg0) {
+		orderManager("Lemonade");
+	}
+	protected void do_btnCherryCoke_actionPerformed(ActionEvent arg0) {
+		orderManager("Cherry Coke");
+	}
+	protected void do_btnMelloYello_actionPerformed(ActionEvent arg0) {
+		orderManager("Mello Yello");
+	}
+	protected void do_btnDietDrPepper_actionPerformed(ActionEvent arg0) {
+		orderManager("Diet Dr Pepper");
+	}
+	protected void do_btnMtBlast_actionPerformed(ActionEvent arg0) {
+		orderManager("Mt Blast");
+	}
+	protected void do_btnFruitPunch_actionPerformed(ActionEvent arg0) {
+		orderManager("Fruit Punch");
+	}
+	protected void do_btnVanCoke_actionPerformed(ActionEvent arg0) {
+		orderManager("Vanilla Coke");
+	}
+	protected void do_btnFuze_actionPerformed(ActionEvent arg0) {
+		orderManager("Fuze");
+	}
+	protected void do_btnCokeZero_actionPerformed(ActionEvent arg0) {
+		orderManager("Coke Zero");
+	}
+	protected void do_btnEssential_actionPerformed(ActionEvent arg0) {
+		orderManager("Essential");
+	}
+	protected void do_btnSqueezed_actionPerformed(ActionEvent arg0) {
+		orderManager("Squeezed");
+	}
+	protected void do_btnFocus_actionPerformed(ActionEvent arg0) {
+		orderManager("Focus");
+	}
+	protected void do_btnXxx_actionPerformed(ActionEvent arg0) {
+		orderManager("XXX");
+	}
+	protected void do_btnRevive_actionPerformed(ActionEvent arg0) {
+		orderManager("Revive");
+	}
+	protected void do_btnBuckets_actionPerformed(ActionEvent arg0) {
+		orderManager("Buckets");
+	}
 }

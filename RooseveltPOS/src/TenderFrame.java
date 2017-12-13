@@ -38,7 +38,7 @@ public class TenderFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public TenderFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -166,9 +166,14 @@ public class TenderFrame extends JFrame {
 	    }
 
 	}
+	
+	public String getTender() {
+		return jtf.getText();
+	}
 
 	protected void do_bclear_actionPerformed(ActionEvent e) {
 		jtf.setText("");
+		numberString = "";
 	}
 
 }
