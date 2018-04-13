@@ -59,21 +59,19 @@ public class PrimaryFrame extends JFrame {
 
 	private JPanel contentPane;
 	
-	//private int maxSize;
-	//private String[] orderStack;
 	private List<String> uniqueItems = new ArrayList<>();
 	private Stack<String> orderStack = new Stack<>();
 	private List<String> dailyTotalSold = new ArrayList<>();
-	//private int top;
+	
 	double subtotal = 0;
 	boolean tenderWindowActive = false;
 	TenderFrame activeFrame;
 	double customTender =0;
 	
 	private final JButton btnSmPop = new JButton("Sm Popcorn");
-	private final JButton btn3Musk = new JButton("");
-	private final JButton btnSqwigglies = new JButton("");
-	private final JButton btnBunchaCrunch = new JButton("");
+	private final JButton btn3Musk = new JButton("3 Musketeers");
+	private final JButton btnSqwigglies = new JButton("Sqwigglies");
+	private final JButton btnBunchaCrunch = new JButton("Buncha Crunch");
 	private final JButton btnSlushy = new JButton("Slushy");
 	private final JButton btnBulkCandy = new JButton("Bulk Candy");
 	private final JPanel pnlOrder = new JPanel();
@@ -96,7 +94,7 @@ public class PrimaryFrame extends JFrame {
 	
 	public static int mainCount=0;
 	private final JPanel pnlPrice = new JPanel();
-	private final JButton btnMedPop = new JButton("");
+	private final JButton btnMedPop = new JButton("Med Popcorn");
 	private final JButton btnLgPop = new JButton("Lg Popcorn");
 	private final JButton btnSmDrink = new JButton("Sm Drink");
 	private final JButton btnMedDrink = new JButton("Med Drink");
@@ -305,7 +303,7 @@ public class PrimaryFrame extends JFrame {
 		
 		contentPane.add(lblChange);
 		btnMenu.setEnabled(false);
-		btnMenu.setBounds(585, 498, 99, 59);
+		btnMenu.setBounds(585, 498, 95, 59);
 		
 		contentPane.add(btnMenu);
 		pnlPrice.setBackground(new Color(255, 255, 224));
@@ -319,15 +317,14 @@ public class PrimaryFrame extends JFrame {
 		pnlDeck.setLayout(new CardLayout(0, 0));
 		pnlDeck.add(candyPanel, pnlCandy);
 		pnlCandy.setLayout(new GridLayout(0, 6, 0, 0));
-		btn3Musk.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/3Musk.jpg")));
+		btn3Musk.setMargin(new Insets(2, 8, 2, 8));
 		btn3Musk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btn3Musk_actionPerformed(arg0);
 			}
 		});
 		
-		btnSmPop.setMargin(new Insets(0, 14, 0, 0));
-		btnSmPop.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/smallPopcorn.png")));
+		btnSmPop.setMargin(new Insets(0, 0, 0, 0));
 		//order(10);
 		
 		btnSmPop.addActionListener(new ActionListener() {
@@ -339,7 +336,6 @@ public class PrimaryFrame extends JFrame {
 		pnlCandy.add(btnSmPop);
 		
 		pnlCandy.add(btn3Musk);
-		btnSqwigglies.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/sqwigglies.png")));
 		btnSqwigglies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnSqwigglies_actionPerformed(arg0);
@@ -347,7 +343,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		
 		pnlCandy.add(btnSqwigglies);
-		btnBunchaCrunch.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/bunchaCrunch.png")));
+		btnBunchaCrunch.setMargin(new Insets(2, 7, 2, 7));
 		btnBunchaCrunch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnBunchaCrunch_actionPerformed(arg0);
@@ -370,7 +366,6 @@ public class PrimaryFrame extends JFrame {
 		
 		pnlCandy.add(btnBulkCandy);
 		btnMedPop.setMargin(new Insets(4, 9, 0, 9));
-		btnMedPop.setIcon(new ImageIcon(PrimaryFrame.class.getResource("/resources/medPop.png")));
 		btnMedPop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				do_btnMedPop_actionPerformed(arg0);
@@ -601,6 +596,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		
 		pnlCandy.add(btnStarburstTrop);
+		btnPeanutChew.setMargin(new Insets(2, 4, 2, 4));
 		btnPeanutChew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnPeanutChew_actionPerformed(e);
@@ -633,6 +629,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		
 		pnlCandy.add(btnSpree);
+		btnCookieDoughBites.setMargin(new Insets(2, 4, 2, 4));
 		btnCookieDoughBites.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnCookieDoughBites_actionPerformed(e);
@@ -671,7 +668,7 @@ public class PrimaryFrame extends JFrame {
 		});
 		
 		pnlCandy.add(btnTwix);
-		btnButterfingerBites.setMargin(new Insets(2, 5, 2, 5));
+		btnButterfingerBites.setMargin(new Insets(2, 2, 2, 2));
 		btnButterfingerBites.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnButterfingerBites_actionPerformed(e);
@@ -855,11 +852,13 @@ public class PrimaryFrame extends JFrame {
 		
 		pnlDrinks.add(btnBuckets);
 		
+		//The Print Daily Total button displays all the items sold during that session and their amounts
 		JButton btnPrintTotal = new JButton("Print Daily Total");
 		btnPrintTotal.setFont(new Font("Tahoma", Font.PLAIN, 8));
 		btnPrintTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(Arrays.toString(dailyTotalSold.toArray()));
+				JOptionPane.showMessageDialog(null, (Arrays.toString(dailyTotalSold.toArray())) );
 			}
 		});
 		btnPrintTotal.setBounds(10, 551, 89, 16);
@@ -871,6 +870,7 @@ public class PrimaryFrame extends JFrame {
 		refreshOrder();     
 	}         
 	
+	//Updates the order panel to reflect the addition or removal of items to an order
 	public void refreshOrder() {
 	    uniqueItems.clear();     
 		pnlOrder.removeAll();
@@ -973,7 +973,6 @@ public class PrimaryFrame extends JFrame {
 		try
 		{
 			//establish the connection
-			//Class.forName("org.sqlite.JDBC").newInstance();
 			Connection conn = DriverManager.getConnection("jdbc:sqlite::resource:roosevelt.db");
 			
 			//create the statement
@@ -1040,6 +1039,7 @@ public class PrimaryFrame extends JFrame {
 		endTransaction();
 	}
 	
+	//The Start Tender button allows values that are not covered by the tender buttons to be entered
 	protected void do_btnStartTender_actionPerformed(ActionEvent e) {
 		if(!tenderWindowActive) {
 			TenderFrame tenderFrame = new TenderFrame();
