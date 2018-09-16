@@ -66,7 +66,8 @@ public class PrimaryFrame extends JFrame {
 	double subtotal = 0;
 	boolean tenderWindowActive = false;
 	TenderFrame activeFrame;
-	double customTender =0;
+	double customTender = 0;
+	boolean isTaxExempt = false;
 	
 	private final JButton btnSmPop = new JButton("Sm Popcorn");
 	private final JButton btn3Musk = new JButton("3 Musketeers");
@@ -165,6 +166,7 @@ public class PrimaryFrame extends JFrame {
 	private final JLabel label_3 = new JLabel("");
 	private final JLabel label_4 = new JLabel("");
 	private final JLabel label_5 = new JLabel("");
+	private final JButton btnTaxExempt = new JButton("Tax Exempt");
 	
 
 	/**
@@ -863,6 +865,15 @@ public class PrimaryFrame extends JFrame {
 		});
 		btnPrintTotal.setBounds(10, 551, 89, 16);
 		pnlDrinks.add(btnPrintTotal);
+		btnTaxExempt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				do_btnTaxExempt_actionPerformed(arg0);
+			}
+		});
+		btnTaxExempt.setMargin(new Insets(2, 4, 2, 4));
+		btnTaxExempt.setBounds(727, 322, 73, 59);
+		
+		contentPane.add(btnTaxExempt);
 	}
 	
 	public void orderManager(String concItem) {
@@ -894,9 +905,15 @@ public class PrimaryFrame extends JFrame {
 		    for(int i = 0; i < pnlPrice.getComponentCount(); i++) {
 		    	JLabel label = (JLabel)pnlPrice.getComponent(i);
 		    	double price = Double.parseDouble(label.getText());
-		    	totalPrice = totalPrice + price;
+		    	totalPrice += price;
 		    }
-		    stateTax = totalPrice * 0.08125;
+		    
+		    if(!isTaxExempt) {
+		    	stateTax = totalPrice * 0.08125;
+		    }else {
+		    	stateTax = 0;
+		    }
+		    
 		    
 		    pnlOrder.add(new JLabel("State Tax"));
 		    pnlOrder.validate();
@@ -964,7 +981,7 @@ public class PrimaryFrame extends JFrame {
 		
 	}
 	
-	
+	//Accesses the item database to retrieve prices
 	private void getPrice(String item, int quantity) {
 		ResultSet rs = null;
 		Statement stmt = null;
@@ -1081,6 +1098,7 @@ public class PrimaryFrame extends JFrame {
 		btn5Dollars.setEnabled(true);
 		btn10Dollars.setEnabled(true);
 		btn20Dollars.setEnabled(true);
+		isTaxExempt = false;
 	}
 	
 	
@@ -1286,5 +1304,20 @@ public class PrimaryFrame extends JFrame {
 		orderManager("Buckets");
 	}
 	protected void do_btnVoidOne_actionPerformed(ActionEvent arg0) {
+	}
+	protected void do_btnTaxExempt_actionPerformed(ActionEvent arg0) {
+		if(!isTaxExempt) {
+			pnlOrder.setBackground(new Color(134, 195, 236));
+		    pnlPrice.setBackground(new Color(134, 195, 236));
+		    
+		    isTaxExempt = true;	
+		    refreshOrder();
+		}else {
+			pnlOrder.setBackground(new Color(255, 255, 224));
+		    pnlPrice.setBackground(new Color(255, 255, 224));
+		    
+		    isTaxExempt = false;
+		    refreshOrder();
+		}
 	}
 }
